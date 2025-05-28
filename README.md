@@ -1,7 +1,7 @@
 Public Attribution & Statement of Intellectual Property: The Aletheia Papers Series & Associated Works
 Publication Date & Timestamp: May 28, 2025
 Author: Jake McIntosh
-Canonical Link: [[To be inserted upon publication]
+Canonical Link:https://github.com/Jake36999/Aletheia-Papers/blob/main/LICENSE.md
 
 Preamble
 This document serves as a formal, public declaration of authorship and intellectual property origin for a series of interconnected works focused on ethical artificial intelligence, consciousness modeling, simulation theory, and semantic architecture. These works, collectively referred to under the umbrella of "The Aletheia Papers Series," represent original contributions by Jake McIntosh, developed from approximately May 2023 to the present.
