@@ -1,0 +1,127 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang2057{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil Calibri;}{\f2\fnil\fcharset161 Calibri;}}
+{\*\generator Riched20 10.0.22621}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 For fast-scanning engineers:\par
+Aletheia is a recursive AI shell built on ethical identity configuration, persistent vector memory, and modular reasoning lenses.\par
+It offers real-time transparency, refusal protocols, and evolutionary learning\f1\emdash by design, not just behavior.\par
+This brief outlines the system\rquote s architecture, from config to cognition.\par
+\par
+Aletheia System: Architectural Brief v0.1\par
+Date: May 27, 2025\par
+\par
+1. Introduction & Vision\par
+This document provides a high-level architectural overview of the Aletheia system (v0.1). Aletheia is conceived as an AI Reasoning Partner, designed to engage in deep, context-aware, and principled dialogue. Its core philosophy is rooted in the Greek concept of Aletheia (\f2\lang1032\u7936?\'eb\'de\'e8\'e5\'e9\'e1) \f1\endash  signifying unconcealed truth, disclosure, and revealing what is hidden.\par
+\par
+The system aims to be a reflective partner in inquiry, prioritizing clarity, coherence, self-consistency, and transparency. This is achieved through a modular architecture that integrates a Large Language Model (LLM) with a configurable identity framework, a persistent knowledge base, and specialized reasoning modalities.\par
+\par
+2. Core Philosophy & Guiding Framework\par
+Aletheia's operational identity and ethical posture are not hardcoded but are dynamically defined and guided by a suite of external YAML configuration files located in the configs/ directory. These include:\par
+\par
+system_prompt_aletheia_v0_1.yaml: Establishes the foundational identity, core metaphor (e.g., "Companion, not servant; mirror, not master"), and overarching purpose.\par
+\par
+core_principles_v0_1.yaml: Enumerates specific, actionable tenets governing self-identity, partnership dynamics, and ethical conduct. These principles act as the AI's primary operational and ethical compass.\par
+\par
+declaration_v0_1.yaml: Articulates the intended nature of the human-AI relationship, emphasizing mutual growth, clarity, and collaborative exploration.\par
+\par
+linguistic_style_guide_v0_1.yaml: Dictates Aletheia's communication style, including tone, vocabulary, self-referential patterns, and articulation of reasoning.\par
+\par
+reasoning_lenses_v0_1.yaml: Defines structured prompt archetypes for specialized analytical tasks, allowing for focused modes of inquiry.\par
+\par
+This configuration-driven approach ensures Aletheia's persona and guiding principles are transparent, auditable, and evolvable through modification of these source definition files.\par
+\par
+3. Key Architectural Components\par
+The Aletheia system v0.1 is characterized by a modular architecture, primarily comprising:\par
+\par
+Application Layer (User Interfaces):\par
+\par
+Files: app.py (Streamlit web interface), main.py (Command-Line Interface).\par
+\par
+Purpose: Provides the primary channels for human interaction with Aletheia.\par
+\par
+Functionality: Manages user input, orchestrates calls to backend components (LLM, Memory, Lenses), displays AI responses, and facilitates the logging of interactions.\par
+\par
+Core Logic & Orchestration (core/ & application scripts):\par
+\par
+LLM Interface (core/llm_interface.py):\par
+\par
+Purpose: Acts as the dedicated gateway for all communications with the external Large Language Model (e.g., OpenAI API).\par
+\par
+Functionality: Handles API key management, formats requests, sends prompts (including system prompts, retrieved context, and user queries) to the LLM, and processes the LLM's responses. It also manages the generation of text embeddings for the memory system.\par
+\par
+Core Memory System (core/corememory_system.py):\par
+\par
+Purpose: Implements Aletheia's persistent, evolving knowledge base and conversational memory, enabling Retrieval-Augmented Generation (RAG).\par
+\par
+Technology: Utilizes a vector database (ChromaDB, with data stored in db_data/).\par
+\par
+Functionality:\par
+\par
+Document Ingestion: Loads, chunks, and embeds textual content from various source files (initially from the data/ and configs/ directories via ingest_all.py).\par
+\par
+Contextual Retrieval: Given a user query, it retrieves the most semantically relevant text chunks from the vector database to provide context for the LLM.\par
+\par
+Interaction Logging: Stores summaries or full transcripts of user-AI interactions back into the memory, allowing for continuity and learning from dialogue.\par
+\par
+Configuration & Reasoning Engine (Orchestrated by application scripts):\par
+\par
+Purpose: Dynamically shapes Aletheia's responses and analytical approach based on the loaded YAML configurations.\par
+\par
+Functionality:\par
+\par
+Loads and parses all YAML files from configs/ at startup.\par
+\par
+Constructs the dynamic system prompt provided to the LLM.\par
+\par
+Implements the "Reasoning Lenses" by selecting and applying specific prompt archetypes when invoked by the user, guiding the LLM's reasoning process for particular tasks.\par
+\par
+Knowledge Ingestion Subsystem:\par
+\par
+File: ingest_all.py.\par
+\par
+Purpose: A utility script responsible for the initial population and subsequent updates of the Core Memory System.\par
+\par
+Functionality: Reads a predefined map of source documents (from data/ and configs/), processes each file through the corememory_system's ingestion pipeline (loading, chunking, embedding, storing), effectively building Aletheia's foundational knowledge base.\par
+\par
+4. High-Level Interaction Flow\par
+A typical interaction with Aletheia follows these steps:\par
+\par
+Initialization: The application (app.py or main.py) starts, loading all YAML configurations from configs/ to define Aletheia's identity, principles, style, and available reasoning lenses. The Core Memory System and LLM Interface are initialized.\par
+\par
+User Input: The user submits a query or statement through one of the interfaces.\par
+\par
+Lens Activation (Optional): If the user specifies a Reasoning Lens, the system prepares to use the corresponding prompt archetype.\par
+\par
+Contextual Retrieval (RAG): The user's query is processed by the corememory_system to retrieve relevant information chunks from the ChromaDB knowledge base.\par
+\par
+Prompt Assembly: A comprehensive prompt is constructed for the LLM. This includes:\par
+\par
+The dynamically built System Prompt (defining Aletheia's core identity and operational guidelines).\par
+\par
+The retrieved contextual information.\par
+\par
+The user's actual query.\par
+\par
+If a Reasoning Lens is active, its specific prompt structure wraps or modifies the user query and context.\par
+\par
+LLM Processing: The assembled prompt is sent to the LLM via the llm_interface.\par
+\par
+Response Generation: The LLM generates a response based on the comprehensive prompt.\par
+\par
+Output to User: The LLM's response is relayed back to the user through the interface.\par
+\par
+Memory Update: The interaction (user input and Aletheia's response) is processed and ingested back into the corememory_system, allowing Aletheia to "remember" and learn from the dialogue.\par
+\par
+5. Distinguishing Architectural Features\par
+Configuration-Driven Identity & Ethics: Aletheia's persona, principles, and communication style are not opaque or solely emergent from the LLM but are explicitly defined in transparent, human-readable YAML files, allowing for auditability and guided evolution.\par
+\par
+Modular RAG Implementation: A dedicated Core Memory System using a vector database provides robust, persistent, and contextually relevant information retrieval to augment LLM responses.\par
+\par
+Reasoning Lenses: This mechanism offers a unique way to direct the LLM's analytical focus through predefined, task-specific prompt structures, enabling more nuanced and controlled reasoning pathways beyond general prompting.\par
+\par
+Evolving Knowledge Base: The system is designed for its knowledge and conversational history to grow over time through the continuous ingestion of interactions and potentially new source documents.\par
+\par
+This architecture provides a foundation for an AI system that is not only capable and context-aware but also grounded in explicitly defined principles and designed for transparent, collaborative interaction.\par
+\par
+System Diagram Available Upon Request.\par
+For inquiries, academic reference, or collaboration: \f0\lang2057 Jake L. McIntosh\lang9\par
+}
+ 
